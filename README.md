@@ -31,19 +31,48 @@
 
 ## 安装
 
-### Claude Code / 命令行编码工具
+本仓库遵循 [Agent Skills](https://agentskills.io/specification) 的 `SKILL.md` 目录结构。只要你的 AI 工具支持加载本地 Skill/Agent Skill，把 `skills/gaokao-english-coach/` 放到该工具的 skills 目录即可。
 
-把 `skills/gaokao-english-coach/` 整个目录复制到技能目录：
+### 方式 1：用 skills CLI 安装（推荐）
+
+如果你使用支持 [skills.sh / Vercel Skills CLI](https://github.com/vercel-labs/skills) 的工具，可直接安装：
 
 ```bash
-# Claude Code
-cp -r skills/gaokao-english-coach ~/.claude/skills/
+# 从 GitHub 仓库安装
+npx skills add jiangyuchen-star/- --skill gaokao-english-coach
 
-# Command Code
-cp -r skills/gaokao-english-coach ~/.commandcode/skills/
+# 安装到当前项目（项目级）
+npx skills add jiangyuchen-star/- --skill gaokao-english-coach -y
+
+# 安装到全局（用户级）
+npx skills add jiangyuchen-star/- --skill gaokao-english-coach -g -y
 ```
 
-之后对话中贴出英语题目、长难句，或问学习方法即可触发；也可以显式调用 `/gaokao-coach`。
+安装后在对话里贴题目、长难句或问学习规划即可触发；部分工具也支持显式调用 `/gaokao-coach`（以工具实际支持为准）。
+
+### 方式 2：手动复制到各 AI 工具目录
+
+先克隆仓库：
+
+```bash
+git clone https://github.com/jiangyuchen-star/-.git gaokao-english-coach
+cd gaokao-english-coach
+```
+
+然后按你使用的工具复制 `skills/gaokao-english-coach/`：
+
+| AI 工具 | 项目级目录 | 用户级目录 | macOS/Linux | Windows PowerShell |
+|---|---|---|---|---|
+| Claude Code | `.claude/skills/` | `~/.claude/skills/` | `cp -r skills/gaokao-english-coach ~/.claude/skills/` | `Copy-Item -Recurse -Force skills/gaokao-english-coach "$env:USERPROFILE\.claude\skills\"` |
+| Command Code | `.commandcode/skills/` | `~/.commandcode/skills/` | `cp -r skills/gaokao-english-coach ~/.commandcode/skills/` | `Copy-Item -Recurse -Force skills/gaokao-english-coach "$env:USERPROFILE\.commandcode\skills\"` |
+| Cursor | `.cursor/skills/` | `~/.cursor/skills/` | `cp -r skills/gaokao-english-coach ~/.cursor/skills/` | `Copy-Item -Recurse -Force skills/gaokao-english-coach "$env:USERPROFILE\.cursor\skills\"` |
+| Windsurf | `.windsurf/skills/` | `~/.windsurf/skills/` | `cp -r skills/gaokao-english-coach ~/.windsurf/skills/` | `Copy-Item -Recurse -Force skills/gaokao-english-coach "$env:USERPROFILE\.windsurf\skills\"` |
+| GitHub Copilot / VS Code Agent Skills | `.github/skills/` | `~/.copilot/skills/` | `cp -r skills/gaokao-english-coach .github/skills/` | `Copy-Item -Recurse -Force skills/gaokao-english-coach ".github\skills\"` |
+| Codex CLI / OpenAI Codex | `.codex/skills/` | `~/.codex/skills/` | `cp -r skills/gaokao-english-coach ~/.codex/skills/` | `Copy-Item -Recurse -Force skills/gaokao-english-coach "$env:USERPROFILE\.codex\skills\"` |
+| Gemini CLI | `.gemini/skills/` | `~/.gemini/skills/` | `cp -r skills/gaokao-english-coach ~/.gemini/skills/` | `Copy-Item -Recurse -Force skills/gaokao-english-coach "$env:USERPROFILE\.gemini\skills\"` |
+| OpenCode / 通用 Agent Skills | `.agents/skills/` | `~/.agents/skills/` | `cp -r skills/gaokao-english-coach ~/.agents/skills/` | `Copy-Item -Recurse -Force skills/gaokao-english-coach "$env:USERPROFILE\.agents\skills\"` |
+
+> 不同工具对 Skill 的发现路径、触发方式可能随版本变化；如果你的工具不在表中，查看它的“Skills / Agent Skills / Custom Instructions”文档，把包含 `SKILL.md` 的目录放到它支持的 skills 路径即可。
 
 ## 字幕采集工具（tools/）
 
